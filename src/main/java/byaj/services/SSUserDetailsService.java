@@ -34,7 +34,7 @@ public class SSUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws
             UsernameNotFoundException{
         try{
-            User user = userRepository.findByUsername(username);
+            User user = userRepository.findByEmail(username);
             if(user == null){
                 LOGGER.debug("user not found with the provided username");
                 return null;
