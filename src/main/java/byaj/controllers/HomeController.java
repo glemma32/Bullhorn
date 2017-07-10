@@ -130,7 +130,7 @@ public class HomeController {
         searchRepository.save(search);
         if(search.getSearchType().toLowerCase().equals("username")){
             model.addAttribute("posts", userRepository.findAllByUsernameOrderByUserDateDesc(search.getSearchValue()));
-            return "postResults2";
+            return "postresults2";
         }
        /* if(search.getSearchType().toLowerCase().equals("company")){
             ArrayList<User> result = new ArrayList();
