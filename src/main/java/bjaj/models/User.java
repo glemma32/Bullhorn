@@ -152,6 +152,14 @@ public class User {
         this.roles = roles;
     }
 
+    public Collection<User> getFollow() {
+        return follow;
+    }
+
+    public void setFollow(Collection<User> follow) {
+        this.follow = follow;
+    }
+
     public String getRoleSettings() {
         return roleSettings;
     }
