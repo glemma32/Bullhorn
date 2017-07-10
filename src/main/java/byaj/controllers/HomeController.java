@@ -46,6 +46,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model){
+        model.addAttribute("search", new Search());
         model.addAttribute("post", new Post());
         model.addAttribute("posts", postRepository.findAllByOrderByPostDateDesc());
         return "postresults2";
