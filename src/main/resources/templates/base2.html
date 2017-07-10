@@ -32,10 +32,10 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li sec:authorize="hasAnyAuthority('USER', 'EMPLOYER', 'ADMIN')"><a href="/resume">Build Resume</a></li>
+                <li sec:authorize="hasAnyAuthority('USER', 'EMPLOYER', 'ADMIN')"><a href="/post">Post</a></li>
                 <li sec:authorize="hasAnyAuthority('EMPLOYER', 'ADMIN')"><a href="/job">Add Job</a></li>
                 <li sec:authorize="hasAnyAuthority('EMPLOYER', 'ADMIN')"><a href="/all/resumes">Show Resumes</a></li>
-                <li sec:authorize="hasAnyAuthority('USER', 'EMPLOYER', 'ADMIN')"><a href="/all/jobs">Show Jobs</a></li>
+                <li sec:authorize="hasAnyAuthority('USER', 'EMPLOYER', 'ADMIN')"><a href="/">Show Posts</a></li>
                 <li sec:authorize="isAnonymous()"><a href="/register">Register Today</a></li>
                 <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
                 <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
@@ -46,10 +46,10 @@
                 </div></a>
                 <div class="radio">
                     <a href="#"><label>
-                        <input type="radio" name="radio" id="radio1" value="person" aria-label="Person" th:field="*{searchType}"/>
-                        Person
+                        <input type="radio" name="radio" id="radio1" value="username" aria-label="Username" th:field="*{searchType}"/>
+                        Username
                     </label></a>
-                    <a sec:authorize="hasAnyAuthority('EMPLOYER', 'ADMIN')" href="#"><label>
+                   <!-- <a sec:authorize="hasAnyAuthority('EMPLOYER', 'ADMIN')" href="#"><label>
                         <input type="radio" name="radio" id="radio2" value="company" aria-label="Company" th:field="*{searchType}"/>
                         Company
                     </label></a>
@@ -60,7 +60,7 @@
                     <a href="#"> <label>
                         <input type="radio" name="radio" id="radio4" value="jobtitle" aria-label="Job" th:field="*{searchType}"/>
                         Job
-                    </label></a>
+                    </label></a>-->
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>

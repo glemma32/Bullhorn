@@ -1,8 +1,6 @@
 package byaj.controllers;
 
-import byaj.models.Post;
-import byaj.models.Search;
-import byaj.models.User;
+import byaj.models.*;
 import byaj.repositories.*;
 import byaj.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by student on 7/10/17.
@@ -46,8 +46,9 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model){
-        model.addAttribute("search", new Search());
-        return "base2";
+        model.addAttribute("post", new Post());
+        model.addAttribute("posts", postRepository.findAllByOrderByPostDateDesc());
+        return "postresults2";
     }
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
@@ -95,7 +96,7 @@ public class HomeController {
     }
 
     @GetMapping("/post")
-    public String newJob(Model model, Principal principal) {
+    public String newPost(Model model, Principal principal) {
         model.addAttribute("search", new Search());
         model.addAttribute("post", new Post());
         model.addAttribute("posts", postRepository.findAllByPostUserOrderByPostDateDesc(userRepository.findByUsername(principal.getName()).getId()));
@@ -103,7 +104,7 @@ public class HomeController {
     }
 
     @PostMapping(path = "/post")
-    public String processJob(@Valid Post post, BindingResult bindingResult, Principal principal) {
+    public String processPost(@Valid Post post, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             System.out.println("post");
             return "redirect:/job";
@@ -113,5 +114,47 @@ public class HomeController {
         postRepository.save(post);
         return "redirect:/post";
 
+    }
+
+    @PostMapping("/search")
+    public String searchForResumes(Search search, BindingResult bindingResult, Principal principal, Model model){
+        if (bindingResult.hasErrors()) {
+            System.out.println("search");
+            return "redirect:/";
+        }
+        model.addAttribute("search", new Search());
+        model.addAttribute("profileBuilder", new ProfileBuilder());
+        model.addAttribute("postBuilder", new PostBuilder());
+        search.setSearchUser(userRepository.findByUsername(principal.getName()).getId());
+        searchRepository.save(search);
+        if(search.getSearchType().toLowerCase().equals("username")){
+            model.addAttribute("posts", userRepository.findAllByFullNameOrderByIdAsc(search.getSearchValue()));
+            return "postResults2";
+        }
+       /* if(search.getSearchType().toLowerCase().equals("company")){
+            ArrayList<User> result = new ArrayList();
+            List<Work> comp = workRepository.findAllByWorkEmployerOrderByWorkResAsc(search.getSearchValue());
+            for (int count = 0; count< comp.size(); count++){
+                result.add(userRepository.findById(comp.get(count).getWorkRes()));
+            }
+            model.addAttribute("results", result);
+            return "searchResults2";
+        }
+        if(search.getSearchType().toLowerCase().equals("school")){
+            ArrayList<User> result = new ArrayList();
+            List<Education> comp = educationRepository.findAllByEduSchoolOrderByEduResAsc(search.getSearchValue());
+            for (int count = 0; count< comp.size(); count++){
+                result.add(userRepository.findById(comp.get(count).getEduRes()));
+            }
+            model.addAttribute("results", result);
+            return "searchResults2";
+        }
+        if(search.getSearchType().toLowerCase().equals("jobtitle")){
+            ArrayList<User> job = new ArrayList();
+            //List<Job> comp = jobRepository.findAllByJobTitleOrderByJobStartYearDesc(search.getSearchValue());
+            model.addAttribute("jobs", jobRepository.findAllByJobTitleOrderByJobStartYearDescJobStartMonthDesc(search.getSearchValue()));
+            return "jobResults2";
+        }*/
+        return "redirect:/";
     }
 }

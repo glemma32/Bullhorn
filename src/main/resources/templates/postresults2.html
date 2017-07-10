@@ -14,16 +14,7 @@
 
 <div class="container">
     <br /><br /><br />
-    <h4>Your Post</h4>
-
-    <form th:action="@{/post}" th:object="${post}" method="post">
-        <div class="form-group">
-            <label for="title">Post</label>
-            <textarea type="text" class="form-control" id="title" placeholder="What do you want to say little birdie?"
-                      th:field="*{postName}"/>
-        </div>
-        <button type="submit" class="btn btn-default">Post</button>
-    </form>
+    <h4>Posts</h4>
 
     <table class="table table-striped">
         <tr>
