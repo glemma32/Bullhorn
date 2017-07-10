@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:th="www.thymeleaf.org"
+         xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Birds That Make Sounds Post</title>
+    <th:block th:replace="base2 :: head"></th:block>
+</head>
+<body>
+<th:block th:replace="base2 :: nav"></th:block>
+
+<div class="container">
+    <br /><br /><br />
+    <h4>Job Post</h4>
+
+    <form th:action="@{/post}" th:object="${post}" method="post">
+        <div class="form-group">
+            <label for="title">Post</label>
+            <textarea type="text" class="form-control" id="title" placeholder="What do you want to say little birdie?"
+                      th:field="*{postName}"/>
+        </div>
+        <button type="submit" class="btn btn-default">Post</button>
+    </form>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Post</th>
+            <th>Author</th>
+            <th>Date</th>
+
+        </tr>
+        <tr th:each="row : ${posts}">
+            <td th:text="${row.postName}"></td>
+            <td th:text="${row.postAuthor}"></td>
+            <td th:text="${row.getFormatDate()}"></td>
+
+
+        </tr>
+    </table>
+
+</div><!-- /.container -->
+
+<th:block th:replace="base2 :: footlinks"></th:block>
+</body>
+</html>

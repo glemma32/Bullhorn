@@ -21,7 +21,7 @@ public class Post {
 
     private String postName;
 
-    private String postRating;
+    private String postAuthor;
     @Column(columnDefinition="integer default -1")
     private int postUser;
 
@@ -42,7 +42,15 @@ public class Post {
     public void setPostName (String postName) {
         this.postName = postName;
     }
+    
+    public String getPostAuthor() {
+        return postAuthor;
+    }
 
+    public void setPostAuthor (String postAuthor) {
+        this.postAuthor = postAuthor;
+    }
+    
     public int getPostUser() {
         return postUser;
     }

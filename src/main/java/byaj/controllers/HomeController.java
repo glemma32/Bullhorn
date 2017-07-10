@@ -1,5 +1,6 @@
 package byaj.controllers;
 
+import byaj.models.Post;
 import byaj.models.Search;
 import byaj.models.User;
 import byaj.repositories.*;
@@ -8,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * Created by student on 7/10/17.
@@ -92,5 +92,26 @@ public class HomeController {
     public String login(Model model) {
         model.addAttribute("search", new Search());
         return "login2";
+    }
+
+    @GetMapping("/post")
+    public String newJob(Model model, Principal principal) {
+        model.addAttribute("search", new Search());
+        model.addAttribute("post", new Post());
+        model.addAttribute("posts", postRepository.findAllByPostUserOrderByPostDateDesc(userRepository.findByUsername(principal.getName()).getId()));
+        return "post2";
+    }
+
+    @PostMapping(path = "/post")
+    public String processJob(@Valid Post post, BindingResult bindingResult, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("post");
+            return "redirect:/job";
+        }
+        post.setPostUser(userRepository.findByUsername(principal.getName()).getId());
+        post.setPostAuthor(userRepository.findByUsername(principal.getName()).getUsername());
+        postRepository.save(post);
+        return "redirect:/post";
+
     }
 }
