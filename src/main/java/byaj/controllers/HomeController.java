@@ -129,7 +129,7 @@ public class HomeController {
         search.setSearchUser(userRepository.findByUsername(principal.getName()).getId());
         searchRepository.save(search);
         if(search.getSearchType().toLowerCase().equals("username")){
-            model.addAttribute("posts", userRepository.findAllByUsernameOOrderByUserDateDesc(search.getSearchValue()));
+            model.addAttribute("posts", userRepository.findAllByUsernameOrderByUserDateDesc(search.getSearchValue()));
             return "postResults2";
         }
        /* if(search.getSearchType().toLowerCase().equals("company")){
