@@ -56,7 +56,7 @@ public class HomeController {
         model.addAttribute("user", new User());
         return "register2";
     }
-    
+
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         model.addAttribute("search", new Search());
@@ -67,7 +67,7 @@ public class HomeController {
         if (result.hasErrors()) {
             return "register2";
         } else {
-            if (user.getRoleSettings().toUpperCase().equals("ADMIN")) {
+           /* if (user.getRoleSettings().toUpperCase().equals("ADMIN")) {
                 //user.setRoles(Arrays.asList(adminRole));
                 //userRepository.save(user);
                 userService.saveAdmin(user);
@@ -82,7 +82,7 @@ public class HomeController {
                 //userRepository.save(user);
                 userService.saveUser(user);
                 model.addAttribute("message", "User Account Successfully Created");
-            }
+            }*/
             userService.saveUser(user);
             model.addAttribute("message", "User Account Successfully Created");
         }
