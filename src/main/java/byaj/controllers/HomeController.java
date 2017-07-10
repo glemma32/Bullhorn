@@ -1,4 +1,16 @@
-package bjaj.controllers;
+package byaj.controllers;
+
+import byaj.repositories.*;
+import byaj.validators.UserValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 /**
  * Created by student on 7/10/17.
@@ -13,22 +25,22 @@ public class HomeController {
     private byaj.services.UserService userService;
 
     @Autowired
-    private byaj.repositories.UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private byaj.repositories.RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     private PostRepository postRepository;
 
     @Autowired
-    private byaj.repositories.SearchRepository searchRepository;
+    private SearchRepository searchRepository;
 
     @Autowired
     private ProfileBuilderRepository profileBuilderRepository;
 
     @Autowired
-    private byaj.repositories.PostBuilderRepository postBuilderRepository;
+    private PostBuilderRepository postBuilderRepository;
 
     @RequestMapping("/")
     public String home(Model model){
@@ -37,7 +49,7 @@ public class HomeController {
     }
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public String processRegistrationPage(@Valid @ModelAttribute("user") byaj.models.User user, BindingResult result, Model model){
+    public String processRegistrationPage(@Valid @ModelAttribute("user") byaj.models.User user, BindingResult result, Model model) {
         model.addAttribute("search", new byaj.models.Search());
 
         model.addAttribute("user", user);
@@ -65,7 +77,7 @@ public class HomeController {
 
         }
         return "redirect:/";
-
+    }
     @RequestMapping("/login")
     public String login(Model model) {
         model.addAttribute("search", new byaj.models.Search());
