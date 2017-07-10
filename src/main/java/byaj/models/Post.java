@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by student on 6/27/17.
@@ -21,6 +24,8 @@ public class Post {
     private String postRating;
     @Column(columnDefinition="integer default -1")
     private int postUser;
+
+    private Date postDate=new Date();
 
 
     public int getPostID() {
@@ -44,5 +49,15 @@ public class Post {
 
     public void setPostUser (int postUser) {
         this.postUser = postUser;
+    }
+
+    public Date getPostDate() {
+        return postDate;
+    }
+
+
+    public String getFormatDate(){
+        SimpleDateFormat format = new SimpleDateFormat("EEEE MMMMM dd, yyyy hh:mm a zzzz", Locale.US);
+        return format.format(postDate);
     }
 }

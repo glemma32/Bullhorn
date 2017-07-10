@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by student on 6/27/17.
@@ -21,6 +24,8 @@ public class Search {
     private String searchType;
     @Column(columnDefinition="integer default -1")
     private int searchUser;
+
+    private Date searchDate=new Date();
 
 
     public int getSearchID() {
@@ -53,5 +58,15 @@ public class Search {
 
     public void setSearchUser (int searchUser) {
         this.searchUser = searchUser;
+    }
+
+    public Date getSearchDate() {
+        return searchDate;
+    }
+
+
+    public String getFormatDate(){
+        SimpleDateFormat format = new SimpleDateFormat("EEEE MMMMM dd, yyyy hh:mm a zzzz", Locale.US);
+        return format.format(searchDate);
     }
 }

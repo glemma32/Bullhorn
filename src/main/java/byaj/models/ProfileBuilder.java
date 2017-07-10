@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by student on 6/27/17.
@@ -19,7 +22,9 @@ public class ProfileBuilder {
     private String profileBuilderValue;
 
     @Column(columnDefinition="integer default -1")
-    private int profileBuilderRes;
+    private int profileBuilderUser;
+
+    private Date profileBuilderDate=new Date();
 
 
     public int getProfileBuilderID() {
@@ -37,11 +42,21 @@ public class ProfileBuilder {
         this.profileBuilderValue = profileBuilderValue;
     }
 
-    public int getProfileBuilderRes() {
-        return profileBuilderRes;
+    public int getProfileBuilderUser() {
+        return profileBuilderUser;
     }
 
-    public void setProfileBuilderRes (int profileBuilderRes) {
-        this.profileBuilderRes = profileBuilderRes;
+    public void setProfileBuilderUser (int profileBuilderUser) {
+        this.profileBuilderUser = profileBuilderUser;
+    }
+
+    public Date getProfileBuilderDate() {
+        return profileBuilderDate;
+    }
+
+
+    public String getFormatDate(){
+        SimpleDateFormat format = new SimpleDateFormat("EEEE MMMMM dd, yyyy hh:mm a zzzz", Locale.US);
+        return format.format(profileBuilderDate);
     }
 }

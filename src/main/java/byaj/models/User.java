@@ -4,7 +4,10 @@ package byaj.models;
 import byaj.models.Role;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -43,8 +46,9 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled = true;
 
-    @Column(columnDefinition="integer default -1")
-    private int userResume;
+    @Column(name = "user_date")
+    private Date userDate=new Date();
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -168,11 +172,13 @@ public class User {
         this.roleSettings = roleSettings;
     }
 
-    public int getUserResume() {
-        return userResume;
+    public Date getUserDate() {
+        return userDate;
     }
 
-    public void setUserResume (int userResume) {
-        this.userResume = userResume;
+
+    public String getFormatDate(){
+        SimpleDateFormat format = new SimpleDateFormat("EEEE MMMMM dd, yyyy hh:mm a zzzz", Locale.US);
+        return format.format(userDate);
     }
 }
