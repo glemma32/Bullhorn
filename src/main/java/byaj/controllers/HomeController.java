@@ -1,5 +1,7 @@
 package byaj.controllers;
 
+import byaj.models.Search;
+import byaj.models.User;
 import byaj.repositories.*;
 import byaj.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +46,20 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model){
-        model.addAttribute("search", new byaj.models.Search());
+        model.addAttribute("search", new Search());
         return "base2";
     }
 
+    @RequestMapping(value="/register", method = RequestMethod.GET)
+    public String showRegistrationPage(Model model){
+        model.addAttribute("search", new Search());
+        model.addAttribute("user", new User());
+        return "register2";
+    }
+    
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public String processRegistrationPage(@Valid @ModelAttribute("user") byaj.models.User user, BindingResult result, Model model) {
-        model.addAttribute("search", new byaj.models.Search());
+    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+        model.addAttribute("search", new Search());
 
         model.addAttribute("user", user);
         userValidator.validate(user, result);
@@ -74,13 +83,14 @@ public class HomeController {
                 userService.saveUser(user);
                 model.addAttribute("message", "User Account Successfully Created");
             }
-
+            userService.saveUser(user);
+            model.addAttribute("message", "User Account Successfully Created");
         }
         return "redirect:/";
     }
     @RequestMapping("/login")
     public String login(Model model) {
-        model.addAttribute("search", new byaj.models.Search());
+        model.addAttribute("search", new Search());
         return "login2";
     }
 }
