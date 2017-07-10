@@ -12,6 +12,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     public User findOneByUsername(String num);
     public List<User> findAllByFullNameOrderByIdAsc(String fullName);
     public List<User> findAllByOrderByLastNameAscFirstNameAsc();
+    public List<User> findAllByUsernameOOrderByUserDateDesc(String username);
     User findByEmail(String email);
     int countByEmail(String email);
     int countByUsername(String username);
