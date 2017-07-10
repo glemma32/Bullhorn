@@ -1,7 +1,14 @@
-package bjaj.repositories;
+package byaj.repositories;
 
 /**
- * Created by student on 7/10/17.
+ * Created by student on 6/20/17.
  */
-public class ProfileBuilderRepository {
+
+import byaj.models.ProfileBuilder;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+public interface ProfileBuilderRepository extends CrudRepository<ProfileBuilder, Integer> {
+    public List<ProfileBuilder> findAllByProfileBuilderUser(int num);
 }

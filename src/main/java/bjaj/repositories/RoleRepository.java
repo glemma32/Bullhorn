@@ -1,7 +1,9 @@
-package bjaj.repositories;
+package byaj.repositories;
 
-/**
- * Created by student on 7/10/17.
- */
-public class RoleRepository {
+import byaj.models.Role;
+import org.springframework.data.repository.CrudRepository;
+
+
+public interface RoleRepository extends CrudRepository<Role, Integer> {
+    Role findByRole(String role);
 }

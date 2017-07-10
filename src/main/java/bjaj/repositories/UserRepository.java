@@ -1,7 +1,19 @@
-package bjaj.repositories;
+package byaj.repositories;
 
-/**
- * Created by student on 7/10/17.
- */
-public class UserRepository {
+import byaj.models.User;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+
+public interface UserRepository extends CrudRepository<User, Integer> {
+    public User findByUsername(String username);
+    public User findById(int id);
+    public User findOneByUsername(String num);
+    public List<User> findAllByFullNameOrderByIdAsc(String fullName);
+    public List<User> findAllByOrderByLastNameAscFirstNameAsc();
+    User findByEmail(String email);
+    int countByEmail(String email);
+    int countByUsername(String username);
+
 }

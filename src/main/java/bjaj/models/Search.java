@@ -20,7 +20,7 @@ public class Search {
 
     private String searchType;
     @Column(columnDefinition="integer default -1")
-    private int searchRes;
+    private int searchUser;
 
 
     public int getSearchID() {
@@ -47,11 +47,11 @@ public class Search {
     }
 
 
-    public int getSearchRes() {
-        return searchRes;
+    public int getSearchUser() {
+        return searchUser;
     }
 
-    public void setSearchRes (int searchRes) {
-        this.searchRes = searchRes;
+    public void setSearchUser (int searchUser) {
+        this.searchUser = searchUser;
     }
 }

@@ -1,7 +1,14 @@
-package bjaj.repositories;
+package byaj.repositories;
 
 /**
- * Created by student on 7/10/17.
+ * Created by student on 6/20/17.
  */
-public class PostRepository {
+
+import byaj.models.Post;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+public interface PostRepository extends CrudRepository<Post, Integer> {
+    public List<Post> findAllByPostUserOrderByPostNameAsc(int num);
 }
