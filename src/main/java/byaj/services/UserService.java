@@ -62,22 +62,22 @@ public class UserService {
         Collection<User> following=user.getFollowing();
         following.add(userRepository.findOneByUsername(principal.getName()));
         user.setFollowing(following);
-        Collection<User> followed=userRepository.findByUsername(principal.getName()).getFollowed();
+        Collection<User> followed=userRepository.findOneByUsername(principal.getName()).getFollowed();
         followed.add(user);
-        userRepository.findByUsername(principal.getName()).setFollowed(followed);
+        userRepository.findOneByUsername(principal.getName()).setFollowed(followed);
     }
     public void unfollowUser(User user){
         Collection<User> unfollowing;
 
-            if( userRepository.findByUsername(principal.getName()).getFollowing().contains(user)){
-                unfollowing=userRepository.findByUsername(principal.getName()).getFollowing();
+            if( userRepository.findOneByUsername(principal.getName()).getFollowing().contains(user)){
+                unfollowing=userRepository.findOneByUsername(principal.getName()).getFollowing();
                 unfollowing.remove(user);
-                userRepository.findByUsername(principal.getName()).setFollowing(unfollowing);
+                userRepository.findOneByUsername(principal.getName()).setFollowing(unfollowing);
             }
         Collection<User> unfollowed;
-            if (user.getFollowed().contains(userRepository.findByUsername(principal.getName()))){
+            if (user.getFollowed().contains(userRepository.findOneByUsername(principal.getName()))){
                 unfollowed=user.getFollowed();
-                unfollowed.remove(userRepository.findByUsername(principal.getName()));
+                unfollowed.remove(userRepository.findOneByUsername(principal.getName()));
                 user.setFollowed(unfollowed);
             }
 
