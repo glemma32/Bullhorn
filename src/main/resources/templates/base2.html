@@ -31,7 +31,7 @@
             <a class="navbar-brand" href="/">A Bird That Makes Sounds</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            <li class="nav navbar-nav">
+            <ul class="nav navbar-nav">
                 <li sec:authorize="hasAnyAuthority('USER', 'EMPLOYER', 'ADMIN')"><a href="/post">Post</a></li>
                <!-- <li sec:authorize="hasAnyAuthority('EMPLOYER', 'ADMIN')"><a href="/job">Add Job</a></li>
                 <li sec:authorize="hasAnyAuthority('EMPLOYER', 'ADMIN')"><a href="/all/resumes">Show Resumes</a></li>-->
@@ -42,7 +42,7 @@
                 <li sec:authorize="isAnonymous()"><a href="/register">Register Today</a></li>
                 <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
                 <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
-
+            </ul>
             <form class="navbar-form navbar-left" sec:authorize="hasAnyAuthority('USER', 'EMPLOYER', 'ADMIN')" th:action="@{/search}" th:object="${search}" method="post">
                 <a href="#"><div class="form-group">
                     <input type="text" class="form-control" placeholder="Search" th:field="*{searchValue}"/>
@@ -68,9 +68,10 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <!--<ul class="nav navbar-nav navbar-right">-->
+            <ul class="nav navbar-nav">
                 <li class="icon-bar" sec:authorize="isAuthenticated()"><a href="#">Welcome, <span sec:authentication="principal.authorities">ROLE_USER, ROLE_ADMIN</span> <span sec:authentication="name">...</span></a></li>
-            <!--</ul>-->
             </ul>
+                <!--</ul>-->
         </div><!--/.nav-collapse -->
     </div>
 </nav>
