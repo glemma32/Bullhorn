@@ -6,7 +6,10 @@ import byaj.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 @Service
 public class UserService {
@@ -28,6 +31,7 @@ public class UserService {
     public int countByEmail(String email) {
         return userRepository.countByEmail(email);
     }
+    Principal principal;
 
     public User findByUsername(String username){
         return userRepository.findByUsername(username);
@@ -52,5 +56,26 @@ public class UserService {
         user.setRoles(Arrays.asList(roleRepository.findByRole("ADMIN")));
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public void followUser(User user){
+        user.setFollowing(Arrays.asList(userRepository.findByUsername(principal.getName())));
+        userRepository.findByUsername(principal.getName()).setFollowed(Arrays.asList(user));
+    }
+    public void unfollowUser(User user){
+        Collection<User> unfollowing;
+
+            if( userRepository.findByUsername(principal.getName()).getFollowing().contains(user)){
+                unfollowing=userRepository.findByUsername(principal.getName()).getFollowing();
+                unfollowing.remove(user);
+                userRepository.findByUsername(principal.getName()).setFollowing(unfollowing);
+            }
+        Collection<User> unfollowed;
+            if (user.getFollowed().contains(userRepository.findByUsername(principal.getName()))){
+                unfollowed=user.getFollowed();
+                unfollowed.remove(userRepository.findByUsername(principal.getName()));
+                user.setFollowed(unfollowed);
+            }
+
     }
 }

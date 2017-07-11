@@ -48,6 +48,7 @@ public class HomeController {
     public String home(Model model){
         model.addAttribute("search", new Search());
         model.addAttribute("post", new Post());
+        model.addAttribute("follow", new Follow());
         model.addAttribute("posts", postRepository.findAllByOrderByPostDateDesc());
         return "postresults2";
     }
@@ -101,6 +102,7 @@ public class HomeController {
         model.addAttribute("search", new Search());
         model.addAttribute("post", new Post());
         model.addAttribute("posts", postRepository.findAllByPostUserOrderByPostDateDesc(userRepository.findByUsername(principal.getName()).getId()));
+        model.addAttribute("follow", new Follow());
         return "post2";
     }
 
@@ -130,6 +132,7 @@ public class HomeController {
         searchRepository.save(search);
         if(search.getSearchType().toLowerCase().equals("username")){
             model.addAttribute("posts", postRepository.findAllByPostAuthorOrderByPostDateDesc(search.getSearchValue()));
+            model.addAttribute("follow", new Follow());
             return "postresults2";
         }
        /* if(search.getSearchType().toLowerCase().equals("company")){
@@ -157,5 +160,39 @@ public class HomeController {
             return "jobResults2";
         }*/
         return "redirect:/";
+    }
+    @PostMapping("/follow")
+    public String changeFollowStatus(Follow follow, BindingResult bindingResult, Principal principal, Model model){
+        if(bindingResult.hasErrors()){
+            return "redirect:/";
+        }
+        if(follow.getFollowType().toLowerCase().equals("follow")){
+            userService.followUser(userRepository.findByUsername(follow.getFollowValue()));
+        }
+        if(follow.getFollowType().toLowerCase().equals("unfollow")){
+            userService.unfollowUser(userRepository.findByUsername(follow.getFollowValue()));
+        }
+        return "redirect:/";
+    }
+    @GetMapping("/following")
+    public String viewFollowing(Model model, Principal principal){
+        model.addAttribute("search", new Search());
+        model.addAttribute("profileBuilder", new ProfileBuilder());
+        model.addAttribute("users", userRepository.findByUsername(principal.getName()).getFollowing());
+        return "userresults2";
+    }
+    @GetMapping("/followers")
+    public String viewFollowers(Model model, Principal principal){
+        model.addAttribute("search", new Search());
+        model.addAttribute("profileBuilder", new ProfileBuilder());
+        model.addAttribute("users", userRepository.findByUsername(principal.getName()).getFollowed());
+        return "userresults2";
+    }
+    @PostMapping("/generate/posts")
+    public String generatePosts(ProfileBuilder profileBuilder, BindingResult bindingResult, Model model){
+        model.addAttribute("search", new Search());
+        model.addAttribute("profileBuilder", new ProfileBuilder());
+        model.addAttribute("posts", postRepository.findAllByPostAuthorOrderByPostDateDesc(profileBuilder.getProfileBuilderValue()));
+        return "postresults2";
     }
 }

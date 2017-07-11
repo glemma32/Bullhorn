@@ -56,7 +56,11 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "following_id"),inverseJoinColumns = @JoinColumn(name = "followed_id"))
-    private Collection<User> follow;
+    private Collection<User> following;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = @JoinColumn(name = "followed_id"),inverseJoinColumns = @JoinColumn(name = "following_id"))
+    private Collection<User> followed;
 
     public User(String email, String password, String firstName, String lastName, boolean enabled, String username) {
         this.email = email;
@@ -156,12 +160,20 @@ public class User {
         this.roles = roles;
     }
 
-    public Collection<User> getFollow() {
-        return follow;
+    public Collection<User> getFollowing() {
+        return following;
     }
 
-    public void setFollow(Collection<User> follow) {
-        this.follow = follow;
+    public void setFollowing(Collection<User> following) {
+        this.following = following;
+    }
+
+    public Collection<User> getFollowed() {
+        return followed;
+    }
+
+    public void setFollowed(Collection<User> followed) {
+        this.followed = followed;
     }
 
     public String getRoleSettings() {
