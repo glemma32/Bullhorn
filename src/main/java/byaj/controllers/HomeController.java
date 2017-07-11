@@ -200,8 +200,10 @@ public class HomeController {
     }
     @PostMapping("/generate/posts")
     public String generatePosts(@Valid ProfileBuilder profileBuilder, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "redirect:/";
+        }
         model.addAttribute("search", new Search());
-        model.addAttribute("profileBuilder", new ProfileBuilder());
         model.addAttribute("posts", postRepository.findAllByPostAuthorOrderByPostDateDesc(profileBuilder.getProfileBuilderValue()));
         model.addAttribute("follow", new Follow());
         return "postresults2";
