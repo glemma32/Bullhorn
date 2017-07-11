@@ -58,27 +58,27 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void followUser(User user){
-        Collection<User> following=user.getFollowing();
-        following.add(userRepository.findOneByUsername(principal.getName()));
-        user.setFollowing(following);
-        Collection<User> followed=userRepository.findOneByUsername(principal.getName()).getFollowed();
-        followed.add(user);
-        userRepository.findOneByUsername(principal.getName()).setFollowed(followed);
+    public void followUser(User otherUser, User thisUser){
+        Collection<User> following=otherUser.getFollowing();
+        following.add(thisUser);
+        otherUser.setFollowing(following);
+        Collection<User> followed=thisUser.getFollowed();
+        followed.add(otherUser);
+        thisUser.setFollowed(followed);
     }
-    public void unfollowUser(User user){
+    public void unfollowUser(User otherUser, User thisUser){
         Collection<User> unfollowing;
 
-            if( userRepository.findOneByUsername(principal.getName()).getFollowing().contains(user)){
-                unfollowing=userRepository.findOneByUsername(principal.getName()).getFollowing();
-                unfollowing.remove(user);
-                userRepository.findOneByUsername(principal.getName()).setFollowing(unfollowing);
+            if( thisUser.getFollowing().contains(otherUser)){
+                unfollowing=thisUser.getFollowing();
+                unfollowing.remove(otherUser);
+                thisUser.setFollowing(unfollowing);
             }
         Collection<User> unfollowed;
-            if (user.getFollowed().contains(userRepository.findOneByUsername(principal.getName()))){
-                unfollowed=user.getFollowed();
-                unfollowed.remove(userRepository.findOneByUsername(principal.getName()));
-                user.setFollowed(unfollowed);
+            if (otherUser.getFollowed().contains(thisUser)){
+                unfollowed=otherUser.getFollowed();
+                unfollowed.remove(thisUser);
+                otherUser.setFollowed(unfollowed);
             }
 
     }

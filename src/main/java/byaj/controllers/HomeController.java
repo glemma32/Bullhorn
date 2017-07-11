@@ -167,10 +167,10 @@ public class HomeController {
             return "redirect:/";
         }
         if(follow.getFollowType().toLowerCase().equals("follow")){
-            userService.followUser(userRepository.findByUsername(follow.getFollowValue()));
+            userService.followUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByUsername(principal.getName()));
         }
         if(follow.getFollowType().toLowerCase().equals("unfollow")){
-            userService.unfollowUser(userRepository.findByUsername(follow.getFollowValue()));
+            userService.unfollowUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByUsername(principal.getName()));
         }
         return "redirect:/";
     }
