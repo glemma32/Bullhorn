@@ -113,7 +113,7 @@ public class HomeController {
             return "redirect:/job";
         }
         post.setPostUser(userRepository.findByUsername(principal.getName()).getId());
-        post.setPostAuthor(userRepository.findByUsername(principal.getName()).getUsername());
+        post.setPostAuthor(principal.getName());
         postRepository.save(post);
         return "redirect:/post";
 
