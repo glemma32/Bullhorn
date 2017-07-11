@@ -59,12 +59,18 @@ public class UserService {
     }
 
     public void followUser(User otherUser, User thisUser){
-        Collection<User> following=otherUser.getFollowing();
-        following.add(thisUser);
-        otherUser.setFollowing(following);
-        Collection<User> followed=thisUser.getFollowed();
-        followed.add(otherUser);
-        thisUser.setFollowed(followed);
+        //this user is following other user
+        Collection<User> following=thisUser.getFollowing();
+        if(!following.contains(otherUser)) {
+            following.add(otherUser);
+            thisUser.setFollowing(following);
+        }
+        //other user is being followed by this user
+        Collection<User> followed=otherUser.getFollowed();
+        if(followed.contains(thisUser)) {
+            followed.add(thisUser);
+            otherUser.setFollowed(followed);
+        }
         userRepository.save(otherUser);
         userRepository.save(thisUser);
     }
