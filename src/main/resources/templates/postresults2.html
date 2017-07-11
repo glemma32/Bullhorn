@@ -29,9 +29,9 @@
             <td th:text="${row.postAuthor}"></td>
             <td th:text="${row.getFormatDate()}"></td>
             <td><form class="form-inline" th:action="@{/follow}" th:object="${follow}" method="post">
-                <div class="text">
+                <div class="radio">
                     <label>
-                        <input type="hidden"  th:value="${row.postAuthor}" th:field="*{followValue}" aria-label="..."/>
+                        <input type="radio"  th:value="${row.postAuthor}" th:field="*{followValue}" aria-label="..."/>
                     </label>
                 </div>
                 <div class="radio">
