@@ -161,6 +161,9 @@ public class HomeController {
         }*/
         return "redirect:/";
     }
+
+    //Follow Post Mapping
+
     @PostMapping("/follow")
     public String changeFollowStatus(@Valid Follow follow, BindingResult bindingResult, Principal principal, Model model){
         if(bindingResult.hasErrors()){
@@ -174,6 +177,9 @@ public class HomeController {
         }
         return "redirect:/";
     }
+
+    //Following Post Mapping
+
     @GetMapping("/following")
     public String viewFollowing(Model model, Principal principal){
         model.addAttribute("search", new Search());

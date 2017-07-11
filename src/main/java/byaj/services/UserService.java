@@ -65,6 +65,8 @@ public class UserService {
         Collection<User> followed=thisUser.getFollowed();
         followed.add(otherUser);
         thisUser.setFollowed(followed);
+        userRepository.save(otherUser);
+        userRepository.save(thisUser);
     }
     public void unfollowUser(User otherUser, User thisUser){
         Collection<User> unfollowing;
@@ -80,6 +82,7 @@ public class UserService {
                 unfollowed.remove(thisUser);
                 otherUser.setFollowed(unfollowed);
             }
-
+        userRepository.save(otherUser);
+        userRepository.save(thisUser);
     }
 }
