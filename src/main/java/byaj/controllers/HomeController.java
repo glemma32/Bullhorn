@@ -120,7 +120,7 @@ public class HomeController {
     }
 
     @PostMapping("/search")
-    public String searchForResumes(Search search, BindingResult bindingResult, Principal principal, Model model){
+    public String searchForResumes(@Valid Search search, BindingResult bindingResult, Principal principal, Model model){
         if (bindingResult.hasErrors()) {
             System.out.println("search");
             return "redirect:/";
@@ -162,7 +162,7 @@ public class HomeController {
         return "redirect:/";
     }
     @PostMapping("/follow")
-    public String changeFollowStatus(Follow follow, BindingResult bindingResult, Principal principal, Model model){
+    public String changeFollowStatus(@Valid Follow follow, BindingResult bindingResult, Principal principal, Model model){
         if(bindingResult.hasErrors()){
             return "redirect:/";
         }
@@ -196,7 +196,7 @@ public class HomeController {
         return "userresults2";
     }
     @PostMapping("/generate/posts")
-    public String generatePosts(ProfileBuilder profileBuilder, BindingResult bindingResult, Model model){
+    public String generatePosts(@Valid ProfileBuilder profileBuilder, BindingResult bindingResult, Model model){
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
         model.addAttribute("posts", postRepository.findAllByPostAuthorOrderByPostDateDesc(profileBuilder.getProfileBuilderValue()));
