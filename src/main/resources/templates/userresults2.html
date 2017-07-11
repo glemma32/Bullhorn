@@ -30,7 +30,7 @@
             <td><form class="form-inline" th:action="@{/generate/posts}" th:object="${profileBuilder}" method="post">
             <div class="hidden">
                 <label>
-                    <input type="hidden"  th:value="${row.username}" th:field="*{profileBuilderValue}" aria-label="..."/>
+                    <input type="text" name="blankText" id="blankText1"  th:value="${row.username}" th:field="*{profileBuilderValue}" aria-label="..."/>
                 </label>
             </div>
             <button type="submit" class="btn btn-default">View Posts</button>
@@ -38,7 +38,7 @@
             <td><form class="form-inline" th:action="@{/follow}" th:object="${follow}" method="post">
                 <div class="hidden">
                     <label>
-                        <input type="hidden" name="blankText" id="blankText1"  th:value="${row.postAuthor}" th:field="*{followValue}" aria-label="..."/>
+                        <input type="text" name="blankText" id="blankText2"  th:value="${row.username}" th:field="*{followValue}" aria-label="..."/>
                     </label>
                 </div>
                 <div class="radio">
