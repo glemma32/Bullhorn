@@ -59,8 +59,12 @@ public class UserService {
     }
 
     public void followUser(User user){
-        user.setFollowing(Arrays.asList(userRepository.findByUsername(principal.getName())));
-        userRepository.findByUsername(principal.getName()).setFollowed(Arrays.asList(user));
+        Collection<User> following=user.getFollowing();
+        following.add(userRepository.findOneByUsername(principal.getName()));
+        user.setFollowing(following);
+        Collection<User> followed=userRepository.findByUsername(principal.getName()).getFollowed();
+        followed.add(user);
+        userRepository.findByUsername(principal.getName()).setFollowed(followed);
     }
     public void unfollowUser(User user){
         Collection<User> unfollowing;
