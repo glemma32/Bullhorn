@@ -67,9 +67,9 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="icon-bar" sec:authorize="isAuthenticated()"><a href="#">Welcome, <span sec:authentication="principal.authorities">ROLE_USER, ROLE_ADMIN</span> <span sec:authentication="name">...</span></a></li>
-            </ul>
+            <!--<ul class="nav navbar-nav navbar-right">-->
+                <div class="icon-bar" sec:authorize="isAuthenticated()"><a href="#">Welcome, <span sec:authentication="principal.authorities">ROLE_USER, ROLE_ADMIN</span> <span sec:authentication="name">...</span></a></div>
+            <!--</ul>-->
         </div><!--/.nav-collapse -->
     </div>
 </nav>
