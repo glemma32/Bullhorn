@@ -189,10 +189,10 @@ public class HomeController {
         return "userresults2";
     }
     @GetMapping("/users")
-    public String viewFollowers(Model model, Principal principal){
+    public String viewUsers(Model model, Principal principal){
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
-        model.addAttribute("users", userRepository.findAllByOrderByUserDateDesc();
+        model.addAttribute("users", userRepository.findAllByOrderByUserDateDesc());
         return "userresults2";
     }
     @PostMapping("/generate/posts")
