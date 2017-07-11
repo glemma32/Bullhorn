@@ -179,6 +179,7 @@ public class HomeController {
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
         model.addAttribute("users", userRepository.findByUsername(principal.getName()).getFollowing());
+        model.addAttribute("follow", new Follow());
         return "userresults2";
     }
     @GetMapping("/followers")
@@ -186,6 +187,7 @@ public class HomeController {
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
         model.addAttribute("users", userRepository.findByUsername(principal.getName()).getFollowed());
+        model.addAttribute("follow", new Follow());
         return "userresults2";
     }
     @GetMapping("/users")
@@ -193,6 +195,7 @@ public class HomeController {
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
         model.addAttribute("users", userRepository.findAllByOrderByUserDateDesc());
+        model.addAttribute("follow", new Follow());
         return "userresults2";
     }
     @PostMapping("/generate/posts")
@@ -200,6 +203,7 @@ public class HomeController {
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
         model.addAttribute("posts", postRepository.findAllByPostAuthorOrderByPostDateDesc(profileBuilder.getProfileBuilderValue()));
+        model.addAttribute("follow", new Follow());
         return "postresults2";
     }
 
