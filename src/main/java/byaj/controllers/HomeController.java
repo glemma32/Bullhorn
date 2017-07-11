@@ -188,6 +188,13 @@ public class HomeController {
         model.addAttribute("users", userRepository.findByUsername(principal.getName()).getFollowed());
         return "userresults2";
     }
+    @GetMapping("/users")
+    public String viewFollowers(Model model, Principal principal){
+        model.addAttribute("search", new Search());
+        model.addAttribute("profileBuilder", new ProfileBuilder());
+        model.addAttribute("users", userRepository.findAllByOrderByUserDateDesc();
+        return "userresults2";
+    }
     @PostMapping("/generate/posts")
     public String generatePosts(ProfileBuilder profileBuilder, BindingResult bindingResult, Model model){
         model.addAttribute("search", new Search());
@@ -195,4 +202,5 @@ public class HomeController {
         model.addAttribute("posts", postRepository.findAllByPostAuthorOrderByPostDateDesc(profileBuilder.getProfileBuilderValue()));
         return "postresults2";
     }
+
 }
