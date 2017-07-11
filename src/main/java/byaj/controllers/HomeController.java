@@ -167,7 +167,7 @@ public class HomeController {
             return "redirect:/";
         }
         if(follow.getFollowType().toLowerCase().equals("follow")){
-            userService.followUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByEmail(principal.getName());
+            userService.followUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByEmail(principal.getName()));
         }
         if(follow.getFollowType().toLowerCase().equals("unfollow")){
             userService.unfollowUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByEmail(principal.getName()));
