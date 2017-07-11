@@ -112,8 +112,8 @@ public class HomeController {
             System.out.println("post");
             return "redirect:/job";
         }
-        post.setPostUser(userRepository.findByUsername(principal.getName()).getId());
-        post.setPostAuthor(principal.getName());
+        post.setPostUser(userRepository.findByEmail(principal.getName()).getId());
+        post.setPostAuthor(userRepository.findByEmail(principal.getName()).getUsername());
         postRepository.save(post);
         return "redirect:/post";
 
@@ -128,7 +128,7 @@ public class HomeController {
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
         model.addAttribute("postBuilder", new PostBuilder());
-        search.setSearchUser(userRepository.findByUsername(principal.getName()).getId());
+        search.setSearchUser(userRepository.findByEmail(principal.getName()).getId());
         searchRepository.save(search);
         if(search.getSearchType().toLowerCase().equals("username")){
             model.addAttribute("posts", postRepository.findAllByPostAuthorOrderByPostDateDesc(search.getSearchValue()));
@@ -167,10 +167,10 @@ public class HomeController {
             return "redirect:/";
         }
         if(follow.getFollowType().toLowerCase().equals("follow")){
-            userService.followUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByUsername(principal.getName()));
+            userService.followUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByEmail(principal.getName());
         }
         if(follow.getFollowType().toLowerCase().equals("unfollow")){
-            userService.unfollowUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByUsername(principal.getName()));
+            userService.unfollowUser(userRepository.findByUsername(follow.getFollowValue()), userRepository.findByEmail(principal.getName()));
         }
         return "redirect:/";
     }
@@ -178,7 +178,7 @@ public class HomeController {
     public String viewFollowing(Model model, Principal principal){
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
-        model.addAttribute("users", userRepository.findByUsername(principal.getName()).getFollowing());
+        model.addAttribute("users", userRepository.findByEmail(principal.getName()).getFollowing());
         model.addAttribute("follow", new Follow());
         return "userresults2";
     }
@@ -186,7 +186,7 @@ public class HomeController {
     public String viewFollowers(Model model, Principal principal){
         model.addAttribute("search", new Search());
         model.addAttribute("profileBuilder", new ProfileBuilder());
-        model.addAttribute("users", userRepository.findByUsername(principal.getName()).getFollowed());
+        model.addAttribute("users", userRepository.findByEmail(principal.getName()).getFollowed());
         model.addAttribute("follow", new Follow());
         return "userresults2";
     }
