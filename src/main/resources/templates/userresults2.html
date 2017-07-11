@@ -38,7 +38,7 @@
             <td><form class="form-inline" th:action="@{/follow}" th:object="${follow}" method="post">
                 <div class="hidden">
                     <label>
-                        <input type="hidden"  th:value="${row.username}" th:field="*{followValue}" aria-label="..."/>
+                        <input type="hidden" name="blankText" id="blankText1"  th:value="${row.postAuthor}" th:field="*{followValue}" aria-label="..."/>
                     </label>
                 </div>
                 <div class="radio">
