@@ -137,7 +137,7 @@ public class HomeController {
         
 
     }
-    @PostMapping("/profile/picture")
+   /* @PostMapping("/profile/picture")
     public String singleImageUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,Principal p, Model model){
         model.addAttribute("search", new Search());
         String url = "";
@@ -174,8 +174,8 @@ public class HomeController {
             e.printStackTrace();
             model.addAttribute("message", "Sorry I can't upload that!");
         }
-        return "tweet";
-    }
+        return "post";
+    }*/
 
     @PostMapping("/search")
     public String searchForResumes(@Valid Search search, BindingResult bindingResult, Principal principal, Model model){
