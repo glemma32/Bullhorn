@@ -4,6 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Type;
+
+import com.cloudinary.StoredFile;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -24,6 +29,10 @@ public class Post {
     private String postAuthor;
     @Column(columnDefinition="integer default -1")
     private int postUser;
+    
+   // @Lob
+    //@Type(type = "text")
+    //private String imageUrl; 
 
     private Date postDate=new Date();
 
@@ -68,4 +77,14 @@ public class Post {
         SimpleDateFormat format = new SimpleDateFormat("EEEE MMMMM dd, yyyy hh:mm a zzzz", Locale.US);
         return format.format(postDate);
     }
+
+	/*public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageurl(String image) {
+		this.imageUrl = imageUrl;
+	}*/
+	
+	
 }

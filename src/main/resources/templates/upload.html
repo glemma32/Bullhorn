@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bird That Makes Sounds Login</title>
+
+    <th:block th:replace="base2 :: head"></th:block>
+</head>
+<body>
+<th:block th:replace="base2 :: nav"></th:block>
+
+<div class="container">
+    <br/><br/><br/><br/>
+    <div class="starter-template">
+    </div>
+    <br />
+    <br /><br />
+                  
+                <form method="POST" action="/upload" enctype="multipart/form-data" >
+                <input type="file" name="file" /><br/><br/>
+                <input type="submit" value="Submit" />
+            </form>
+            <div th:if="${message}">
+                <h2 th:text="${message}"></h2><br/><br/>
+            </div>
+            </div>
+                     <div class="container">
+            <br /><br />
+			 <br /><br />
+            <div th:if="${imageurl} != null">
+	            <form action="/filter" >
+	            	<img th:src="${imageurl}" />
+	            	<input type="hidden" name ="imagename" th:value="${imagename}" />
+	            	<p>Filter your picture</p>
+	            	Width:<input type="text" name="width" value="150" /><br/>
+	            	Height:<input type="text" name="height" value="150" /><br/>
+	            	crop:<input type="radio" name="action" value="crop"/><br/>
+	            	<select name="filter">
+					    <option value="sepia">Sepia</option>
+					    <option value="blur">Blur</option>
+					    <option value="blue" >Blue</option>
+					  </select>
+					  <br/>
+	            	<input type="submit" value="Submit" />
+	            </form>      
+ </div>
+ <div th:if="${sizedimageurl} != null">
+                
+               		 <div th:utext="${sizedimageurl}"></div>
+                </div>
+</div><!-- /.container -->
+
+<th:block th:replace="base2 :: footlinks"></th:block>
+</body>
+</html>

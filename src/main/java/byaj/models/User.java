@@ -2,6 +2,7 @@ package byaj.models;
 
 
 import byaj.models.Role;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -49,10 +50,22 @@ public class User {
     @Column(name = "user_date")
     private Date userDate=new Date();
 
+   
+    @Basic
+    //@Column(name="picture_url", columnDefinition="blob default http://res.cloudinary.com/andrewjonesdev/image/upload/c_scale,h_100/v1499894133/profilepic_kos4l4.jpg")
+    private String profilePicUrl;
+    
+    @Column(name = "picture_date")
+    private Date picDate=new Date();
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="likes",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "post_id"))
+    private Collection<Post> likes;
 
     @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name="follow_status", joinColumns = @JoinColumn(name = "following_id"),inverseJoinColumns = @JoinColumn(name = "followed_id"))
@@ -62,7 +75,7 @@ public class User {
     @JoinTable(name="follow_status", joinColumns = @JoinColumn(name = "followed_id"),inverseJoinColumns = @JoinColumn(name = "following_id"))
     private Collection<User> followed;
 
-    public User(String email, String password, String firstName, String lastName, boolean enabled, String username) {
+    public User(String email, String password, String firstName, String lastName, boolean enabled, String username, String picUrl, String picOriginUrl, String picDefaultUrl) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -70,7 +83,8 @@ public class User {
         this.enabled = enabled;
         this.username = username;
         fullName = firstName + " " + lastName;
-
+        this.profilePicUrl=picUrl;
+        
     }
 
     public User() {
@@ -152,6 +166,8 @@ public class User {
         this.username = username;
     }
 
+    
+
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -193,4 +209,44 @@ public class User {
         SimpleDateFormat format = new SimpleDateFormat("EEEE MMMMM dd, yyyy hh:mm a zzzz", Locale.US);
         return format.format(userDate);
     }
+
+    public Date getPicDate() {
+        return picDate;
+    }
+
+    public void setPicDate (){
+        this.picDate = new Date();
+    }
+
+    public String getFormatPicDate(){
+        SimpleDateFormat format = new SimpleDateFormat("EEEE MMMMM dd, yyyy hh:mm a zzzz", Locale.US);
+        return format.format(picDate);
+    }
+
+    public boolean followedContains(User user){
+        if(followed.contains(user)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean followingContains(User user){
+        if(following.contains(user)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+	public String getProfilePicUrl() {
+		return profilePicUrl;
+	}
+
+	public void setProfilePicUrl(String profilePicUrl) {
+		this.profilePicUrl = profilePicUrl;
+	}
 }
+   
