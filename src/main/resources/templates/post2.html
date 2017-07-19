@@ -12,11 +12,32 @@
 <body>
 <th:block th:replace="base2 :: nav"></th:block>
 
-<div class="container">
+<!-- <div class="container">
+
+    <div class="row">
+
+         profile 
+        <div class="col-md-3">
+            <div class="well">
+               <p th:text="${activeUser.fullName}">full name error</p>
+                <p th:text="${activeUser.userName}">username error</p>
+                <p th:text="${activeUser.email}">username error</p>
+                <p>
+                     <th:block th:text="${activeUser.street}">street error</th:block>
+                    <th:block th:text="${activeUser.city}">city error</th:block>
+                    <th:block th:text="${activeUser.state}">state error</th:block>
+                </p>
+            </div>
+            </div>
+            
+</div>-->
+ <div class="container">
     <br /><br /><br />
+    
+        <form th:action="@{/post}" th:object="${post}" method="post">
     <h4>Your Post</h4>
 
-    <form th:action="@{/post}" th:object="${post}" method="post">
+
         <div class="form-group">
             <label for="title">Post</label>
             <textarea type="text" class="form-control" id="title" placeholder="What do you want to say little birdie?"

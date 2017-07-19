@@ -40,6 +40,8 @@ public class User {
 
     @Column(name = "full_name")
     private String fullName;
+    
+    private Photo photos;
 
     @Column(name = "role_settings")
     private String roleSettings;
@@ -51,9 +53,9 @@ public class User {
     private Date userDate=new Date();
 
    
-    @Basic
+   /* @Basic
     //@Column(name="picture_url", columnDefinition="blob default http://res.cloudinary.com/andrewjonesdev/image/upload/c_scale,h_100/v1499894133/profilepic_kos4l4.jpg")
-    private String profilePicUrl;
+    private String profilePicUrl;*/
     
     @Column(name = "picture_date")
     private Date picDate=new Date();
@@ -83,7 +85,7 @@ public class User {
         this.enabled = enabled;
         this.username = username;
         fullName = firstName + " " + lastName;
-        this.profilePicUrl=picUrl;
+        //this.profilePicUrl=picUrl;
         
     }
 
@@ -150,7 +152,15 @@ public class User {
         return fullName;
     }
 
-    public boolean isEnabled() {
+    public Photo getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Photo photos) {
+		this.photos = photos;
+	}
+
+	public boolean isEnabled() {
         return enabled;
     }
 
@@ -241,12 +251,12 @@ public class User {
         }
     }
 
-	public String getProfilePicUrl() {
+	/*public String getProfilePicUrl() {
 		return profilePicUrl;
 	}
 
 	public void setProfilePicUrl(String profilePicUrl) {
 		this.profilePicUrl = profilePicUrl;
-	}
+	}*/
 }
    

@@ -66,6 +66,7 @@ public class HomeController {
     @Autowired
     private PostBuilderRepository postBuilderRepository;
 
+    
     @RequestMapping("/")
     public String home(Model model){
         model.addAttribute("search", new Search());
@@ -123,13 +124,12 @@ public class HomeController {
     }
 
     @PostMapping(path = "/post")
-    public String processPost(@Valid Post post, BindingResult bindingResult, Principal principal, Model model) {
+    public String processPost(@Valid Post post, BindingResult bindingResult, Principal principal, Model model,User user) {
         if (bindingResult.hasErrors()) {
             System.out.println("post");
             return "redirect:/post";
         }
         
-       
         post.setPostUser(userRepository.findByUsername(principal.getName()).getId());
         post.setPostAuthor(userRepository.findByUsername(principal.getName()).getUsername());
         postRepository.save(post);
